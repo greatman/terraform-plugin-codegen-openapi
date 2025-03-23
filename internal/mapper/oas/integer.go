@@ -4,18 +4,18 @@
 package oas
 
 import (
-	"github.com/hashicorp/terraform-plugin-codegen-openapi/internal/mapper/attrmapper"
-	"github.com/hashicorp/terraform-plugin-codegen-openapi/internal/mapper/frameworkvalidators"
-	"github.com/hashicorp/terraform-plugin-codegen-spec/datasource"
-	"github.com/hashicorp/terraform-plugin-codegen-spec/provider"
-	"github.com/hashicorp/terraform-plugin-codegen-spec/resource"
-	"github.com/hashicorp/terraform-plugin-codegen-spec/schema"
+	"github.com/greatman/terraform-plugin-codegen-openapi/internal/mapper/attrmapper"
+	"github.com/greatman/terraform-plugin-codegen-openapi/internal/mapper/frameworkvalidators"
+	"github.com/greatman/terraform-plugin-codegen-spec/datasource"
+	"github.com/greatman/terraform-plugin-codegen-spec/provider"
+	"github.com/greatman/terraform-plugin-codegen-spec/resource"
+	"github.com/greatman/terraform-plugin-codegen-spec/schema"
 )
 
 func (s *OASSchema) BuildIntegerResource(name string, computability schema.ComputedOptionalRequired) (attrmapper.ResourceAttribute, *SchemaError) {
-	result := &attrmapper.ResourceInt64Attribute{
+	result := &attrmapper.ResourceInt32Attribute{
 		Name: name,
-		Int64Attribute: resource.Int64Attribute{
+		Int32Attribute: resource.Int32Attribute{
 			ComputedOptionalRequired: computability,
 			DeprecationMessage:       s.GetDeprecationMessage(),
 			Description:              s.GetDescription(),
@@ -23,13 +23,13 @@ func (s *OASSchema) BuildIntegerResource(name string, computability schema.Compu
 	}
 
 	if s.Schema.Default != nil {
-		var staticDefault int64
+		var staticDefault int32
 		if err := s.Schema.Default.Decode(&staticDefault); err == nil {
 			if computability == schema.Required {
 				result.ComputedOptionalRequired = schema.ComputedOptional
 			}
 
-			result.Default = &schema.Int64Default{
+			result.Default = &schema.Int32Default{
 				Static: &staticDefault,
 			}
 		}
@@ -43,9 +43,9 @@ func (s *OASSchema) BuildIntegerResource(name string, computability schema.Compu
 }
 
 func (s *OASSchema) BuildIntegerDataSource(name string, computability schema.ComputedOptionalRequired) (attrmapper.DataSourceAttribute, *SchemaError) {
-	result := &attrmapper.DataSourceInt64Attribute{
+	result := &attrmapper.DataSourceInt32Attribute{
 		Name: name,
-		Int64Attribute: datasource.Int64Attribute{
+		Int32Attribute: datasource.Int32Attribute{
 			ComputedOptionalRequired: computability,
 			DeprecationMessage:       s.GetDeprecationMessage(),
 			Description:              s.GetDescription(),
@@ -60,9 +60,9 @@ func (s *OASSchema) BuildIntegerDataSource(name string, computability schema.Com
 }
 
 func (s *OASSchema) BuildIntegerProvider(name string, optionalOrRequired schema.OptionalRequired) (attrmapper.ProviderAttribute, *SchemaError) {
-	result := &attrmapper.ProviderInt64Attribute{
+	result := &attrmapper.ProviderInt32Attribute{
 		Name: name,
-		Int64Attribute: provider.Int64Attribute{
+		Int32Attribute: provider.Int32Attribute{
 			OptionalRequired:   optionalOrRequired,
 			DeprecationMessage: s.GetDeprecationMessage(),
 			Description:        s.GetDescription(),
@@ -75,18 +75,18 @@ func (s *OASSchema) BuildIntegerProvider(name string, optionalOrRequired schema.
 
 func (s *OASSchema) BuildIntegerElementType() (schema.ElementType, *SchemaError) {
 	return schema.ElementType{
-		Int64: &schema.Int64Type{},
+		Int32: &schema.Int32Type{},
 	}, nil
 }
 
-func (s *OASSchema) GetIntegerValidators() []schema.Int64Validator {
-	var result []schema.Int64Validator
+func (s *OASSchema) GetIntegerValidators() []schema.Int32Validator {
+	var result []schema.Int32Validator
 
 	if len(s.Schema.Enum) > 0 {
-		var enum []int64
+		var enum []int32
 
 		for _, valueNode := range s.Schema.Enum {
-			var value int64
+			var value int32
 			if err := valueNode.Decode(&value); err != nil {
 				// could consider error/panic here to notify developers
 				continue
@@ -95,10 +95,10 @@ func (s *OASSchema) GetIntegerValidators() []schema.Int64Validator {
 			enum = append(enum, value)
 		}
 
-		customValidator := frameworkvalidators.Int64ValidatorOneOf(enum)
+		customValidator := frameworkvalidators.Int32ValidatorOneOf(enum)
 
 		if customValidator != nil {
-			result = append(result, schema.Int64Validator{
+			result = append(result, schema.Int32Validator{
 				Custom: customValidator,
 			})
 		}
@@ -108,16 +108,16 @@ func (s *OASSchema) GetIntegerValidators() []schema.Int64Validator {
 	maximum := s.Schema.Maximum
 
 	if minimum != nil && maximum != nil {
-		result = append(result, schema.Int64Validator{
-			Custom: frameworkvalidators.Int64ValidatorBetween(int64(*minimum), int64(*maximum)),
+		result = append(result, schema.Int32Validator{
+			Custom: frameworkvalidators.Int32ValidatorBetween(int32(*minimum), int32(*maximum)),
 		})
 	} else if minimum != nil {
-		result = append(result, schema.Int64Validator{
-			Custom: frameworkvalidators.Int64ValidatorAtLeast(int64(*minimum)),
+		result = append(result, schema.Int32Validator{
+			Custom: frameworkvalidators.Int32ValidatorAtLeast(int32(*minimum)),
 		})
 	} else if maximum != nil {
-		result = append(result, schema.Int64Validator{
-			Custom: frameworkvalidators.Int64ValidatorAtMost(int64(*maximum)),
+		result = append(result, schema.Int32Validator{
+			Custom: frameworkvalidators.Int32ValidatorAtMost(int32(*maximum)),
 		})
 	}
 

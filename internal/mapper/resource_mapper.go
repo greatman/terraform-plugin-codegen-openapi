@@ -7,14 +7,14 @@ import (
 	"errors"
 	"log/slog"
 
-	"github.com/hashicorp/terraform-plugin-codegen-openapi/internal/config"
-	"github.com/hashicorp/terraform-plugin-codegen-openapi/internal/explorer"
-	"github.com/hashicorp/terraform-plugin-codegen-openapi/internal/log"
-	"github.com/hashicorp/terraform-plugin-codegen-openapi/internal/mapper/attrmapper"
-	"github.com/hashicorp/terraform-plugin-codegen-openapi/internal/mapper/oas"
-	"github.com/hashicorp/terraform-plugin-codegen-openapi/internal/mapper/util"
-	"github.com/hashicorp/terraform-plugin-codegen-spec/resource"
-	"github.com/hashicorp/terraform-plugin-codegen-spec/schema"
+	"github.com/greatman/terraform-plugin-codegen-openapi/internal/config"
+	"github.com/greatman/terraform-plugin-codegen-openapi/internal/explorer"
+	"github.com/greatman/terraform-plugin-codegen-openapi/internal/log"
+	"github.com/greatman/terraform-plugin-codegen-openapi/internal/mapper/attrmapper"
+	"github.com/greatman/terraform-plugin-codegen-openapi/internal/mapper/oas"
+	"github.com/greatman/terraform-plugin-codegen-openapi/internal/mapper/util"
+	"github.com/greatman/terraform-plugin-codegen-spec/resource"
+	"github.com/greatman/terraform-plugin-codegen-spec/schema"
 )
 
 var _ ResourceMapper = resourceMapper{}

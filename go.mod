@@ -1,4 +1,4 @@
-module github.com/hashicorp/terraform-plugin-codegen-openapi
+module github.com/greatman/terraform-plugin-codegen-openapi
 
 go 1.23.0
 
@@ -6,8 +6,8 @@ toolchain go1.24.0
 
 require (
 	github.com/google/go-cmp v0.7.0
+	github.com/greatman/terraform-plugin-codegen-spec v0.0.0-20250323030141-c280f6d69408
 	github.com/hashicorp/cli v1.1.7
-	github.com/hashicorp/terraform-plugin-codegen-spec v0.2.0
 	github.com/mattn/go-colorable v0.1.14
 	github.com/pb33f/libopenapi v0.21.5
 	gopkg.in/yaml.v3 v3.0.1

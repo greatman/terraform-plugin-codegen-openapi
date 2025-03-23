@@ -3,7 +3,7 @@
 
 package util
 
-import "github.com/hashicorp/terraform-plugin-codegen-spec/schema"
+import "github.com/greatman/terraform-plugin-codegen-spec/schema"
 
 // CreateObjectAttributeType is a helper function that assists in mapping between ElementType and ObjectAttributeType
 // as their structs share the same underlying types

@@ -15,18 +15,18 @@ import (
 	"github.com/greatman/terraform-plugin-codegen-openapi/internal/mapper/attrmapper"
 )
 
-func TestResourceFloat64Attribute_Merge(t *testing.T) {
+func TestResourceInt32Attribute_Merge(t *testing.T) {
 	t.Parallel()
 
 	testCases := map[string]struct {
-		targetAttribute   attrmapper.ResourceFloat64Attribute
+		targetAttribute   attrmapper.ResourceInt32Attribute
 		mergeAttribute    attrmapper.ResourceAttribute
 		expectedAttribute attrmapper.ResourceAttribute
 	}{
 		"mismatch type - no merge": {
-			targetAttribute: attrmapper.ResourceFloat64Attribute{
-				Name: "float64_attribute",
-				Float64Attribute: resource.Float64Attribute{
+			targetAttribute: attrmapper.ResourceInt32Attribute{
+				Name: "Int32_attribute",
+				Int32Attribute: resource.Int32Attribute{
 					ComputedOptionalRequired: schema.Required,
 				},
 			},
@@ -37,78 +37,78 @@ func TestResourceFloat64Attribute_Merge(t *testing.T) {
 					Description:              pointer("string description"),
 				},
 			},
-			expectedAttribute: &attrmapper.ResourceFloat64Attribute{
-				Name: "float64_attribute",
-				Float64Attribute: resource.Float64Attribute{
+			expectedAttribute: &attrmapper.ResourceInt32Attribute{
+				Name: "Int32_attribute",
+				Int32Attribute: resource.Int32Attribute{
 					ComputedOptionalRequired: schema.Required,
 				},
 			},
 		},
 		"populated description - no merge": {
-			targetAttribute: attrmapper.ResourceFloat64Attribute{
-				Name: "float64_attribute",
-				Float64Attribute: resource.Float64Attribute{
+			targetAttribute: attrmapper.ResourceInt32Attribute{
+				Name: "Int32_attribute",
+				Int32Attribute: resource.Int32Attribute{
 					ComputedOptionalRequired: schema.Required,
-					Description:              pointer("old float64 description"),
+					Description:              pointer("old Int32 description"),
 				},
 			},
-			mergeAttribute: &attrmapper.ResourceFloat64Attribute{
-				Name: "float64_attribute",
-				Float64Attribute: resource.Float64Attribute{
+			mergeAttribute: &attrmapper.ResourceInt32Attribute{
+				Name: "Int32_attribute",
+				Int32Attribute: resource.Int32Attribute{
 					ComputedOptionalRequired: schema.ComputedOptional,
-					Description:              pointer("new float64 description"),
+					Description:              pointer("new Int32 description"),
 				},
 			},
-			expectedAttribute: &attrmapper.ResourceFloat64Attribute{
-				Name: "float64_attribute",
-				Float64Attribute: resource.Float64Attribute{
+			expectedAttribute: &attrmapper.ResourceInt32Attribute{
+				Name: "Int32_attribute",
+				Int32Attribute: resource.Int32Attribute{
 					ComputedOptionalRequired: schema.Required,
-					Description:              pointer("old float64 description"),
+					Description:              pointer("old Int32 description"),
 				},
 			},
 		},
 		"nil description - merge": {
-			targetAttribute: attrmapper.ResourceFloat64Attribute{
-				Name: "float64_attribute",
-				Float64Attribute: resource.Float64Attribute{
+			targetAttribute: attrmapper.ResourceInt32Attribute{
+				Name: "Int32_attribute",
+				Int32Attribute: resource.Int32Attribute{
 					ComputedOptionalRequired: schema.Required,
 				},
 			},
-			mergeAttribute: &attrmapper.ResourceFloat64Attribute{
-				Name: "float64_attribute",
-				Float64Attribute: resource.Float64Attribute{
+			mergeAttribute: &attrmapper.ResourceInt32Attribute{
+				Name: "Int32_attribute",
+				Int32Attribute: resource.Int32Attribute{
 					ComputedOptionalRequired: schema.ComputedOptional,
-					Description:              pointer("new float64 description"),
+					Description:              pointer("new Int32 description"),
 				},
 			},
-			expectedAttribute: &attrmapper.ResourceFloat64Attribute{
-				Name: "float64_attribute",
-				Float64Attribute: resource.Float64Attribute{
+			expectedAttribute: &attrmapper.ResourceInt32Attribute{
+				Name: "Int32_attribute",
+				Int32Attribute: resource.Int32Attribute{
 					ComputedOptionalRequired: schema.Required,
-					Description:              pointer("new float64 description"),
+					Description:              pointer("new Int32 description"),
 				},
 			},
 		},
 		"empty description - merge": {
-			targetAttribute: attrmapper.ResourceFloat64Attribute{
-				Name: "float64_attribute",
-				Float64Attribute: resource.Float64Attribute{
+			targetAttribute: attrmapper.ResourceInt32Attribute{
+				Name: "Int32_attribute",
+				Int32Attribute: resource.Int32Attribute{
 					ComputedOptionalRequired: schema.Required,
 					Description:              pointer(""),
 				},
 			},
-			mergeAttribute: &attrmapper.ResourceFloat64Attribute{
-				Name: "float64_attribute",
-				Float64Attribute: resource.Float64Attribute{
+			mergeAttribute: &attrmapper.ResourceInt32Attribute{
+				Name: "Int32_attribute",
+				Int32Attribute: resource.Int32Attribute{
 					ComputedOptionalRequired: schema.ComputedOptional,
-					Description:              pointer("new float64 description"),
+					Description:              pointer("new Int32 description"),
 				},
 			},
-			expectedAttribute: &attrmapper.ResourceFloat64Attribute{
-				Name: "float64_attribute",
-				Float64Attribute: resource.Float64Attribute{
+			expectedAttribute: &attrmapper.ResourceInt32Attribute{
+				Name: "Int32_attribute",
+				Int32Attribute: resource.Int32Attribute{
 					ComputedOptionalRequired: schema.Required,
-					Description:              pointer("new float64 description"),
+					Description:              pointer("new Int32 description"),
 				},
 			},
 		},
@@ -127,18 +127,18 @@ func TestResourceFloat64Attribute_Merge(t *testing.T) {
 	}
 }
 
-func TestResourceFloat64Attribute_ApplyOverride(t *testing.T) {
+func TestResourceInt32Attribute_ApplyOverride(t *testing.T) {
 	t.Parallel()
 
 	testCases := map[string]struct {
-		attribute         attrmapper.ResourceFloat64Attribute
+		attribute         attrmapper.ResourceInt32Attribute
 		override          explorer.Override
 		expectedAttribute attrmapper.ResourceAttribute
 	}{
 		"override description": {
-			attribute: attrmapper.ResourceFloat64Attribute{
+			attribute: attrmapper.ResourceInt32Attribute{
 				Name: "test_attribute",
-				Float64Attribute: resource.Float64Attribute{
+				Int32Attribute: resource.Int32Attribute{
 					ComputedOptionalRequired: schema.Required,
 					Description:              pointer("old description"),
 				},
@@ -146,9 +146,9 @@ func TestResourceFloat64Attribute_ApplyOverride(t *testing.T) {
 			override: explorer.Override{
 				Description: "new description",
 			},
-			expectedAttribute: &attrmapper.ResourceFloat64Attribute{
+			expectedAttribute: &attrmapper.ResourceInt32Attribute{
 				Name: "test_attribute",
-				Float64Attribute: resource.Float64Attribute{
+				Int32Attribute: resource.Int32Attribute{
 					ComputedOptionalRequired: schema.Required,
 					Description:              pointer("new description"),
 				},
@@ -169,18 +169,18 @@ func TestResourceFloat64Attribute_ApplyOverride(t *testing.T) {
 	}
 }
 
-func TestDataSourceFloat64Attribute_Merge(t *testing.T) {
+func TestDataSourceInt32Attribute_Merge(t *testing.T) {
 	t.Parallel()
 
 	testCases := map[string]struct {
-		targetAttribute   attrmapper.DataSourceFloat64Attribute
+		targetAttribute   attrmapper.DataSourceInt32Attribute
 		mergeAttribute    attrmapper.DataSourceAttribute
 		expectedAttribute attrmapper.DataSourceAttribute
 	}{
 		"mismatch type - no merge": {
-			targetAttribute: attrmapper.DataSourceFloat64Attribute{
-				Name: "float64_attribute",
-				Float64Attribute: datasource.Float64Attribute{
+			targetAttribute: attrmapper.DataSourceInt32Attribute{
+				Name: "Int32_attribute",
+				Int32Attribute: datasource.Int32Attribute{
 					ComputedOptionalRequired: schema.Required,
 				},
 			},
@@ -191,78 +191,78 @@ func TestDataSourceFloat64Attribute_Merge(t *testing.T) {
 					Description:              pointer("string description"),
 				},
 			},
-			expectedAttribute: &attrmapper.DataSourceFloat64Attribute{
-				Name: "float64_attribute",
-				Float64Attribute: datasource.Float64Attribute{
+			expectedAttribute: &attrmapper.DataSourceInt32Attribute{
+				Name: "Int32_attribute",
+				Int32Attribute: datasource.Int32Attribute{
 					ComputedOptionalRequired: schema.Required,
 				},
 			},
 		},
 		"populated description - no merge": {
-			targetAttribute: attrmapper.DataSourceFloat64Attribute{
-				Name: "float64_attribute",
-				Float64Attribute: datasource.Float64Attribute{
+			targetAttribute: attrmapper.DataSourceInt32Attribute{
+				Name: "Int32_attribute",
+				Int32Attribute: datasource.Int32Attribute{
 					ComputedOptionalRequired: schema.Required,
-					Description:              pointer("old float64 description"),
+					Description:              pointer("old Int32 description"),
 				},
 			},
-			mergeAttribute: &attrmapper.DataSourceFloat64Attribute{
-				Name: "float64_attribute",
-				Float64Attribute: datasource.Float64Attribute{
+			mergeAttribute: &attrmapper.DataSourceInt32Attribute{
+				Name: "Int32_attribute",
+				Int32Attribute: datasource.Int32Attribute{
 					ComputedOptionalRequired: schema.ComputedOptional,
-					Description:              pointer("new float64 description"),
+					Description:              pointer("new Int32 description"),
 				},
 			},
-			expectedAttribute: &attrmapper.DataSourceFloat64Attribute{
-				Name: "float64_attribute",
-				Float64Attribute: datasource.Float64Attribute{
+			expectedAttribute: &attrmapper.DataSourceInt32Attribute{
+				Name: "Int32_attribute",
+				Int32Attribute: datasource.Int32Attribute{
 					ComputedOptionalRequired: schema.Required,
-					Description:              pointer("old float64 description"),
+					Description:              pointer("old Int32 description"),
 				},
 			},
 		},
 		"nil description - merge": {
-			targetAttribute: attrmapper.DataSourceFloat64Attribute{
-				Name: "float64_attribute",
-				Float64Attribute: datasource.Float64Attribute{
+			targetAttribute: attrmapper.DataSourceInt32Attribute{
+				Name: "Int32_attribute",
+				Int32Attribute: datasource.Int32Attribute{
 					ComputedOptionalRequired: schema.Required,
 				},
 			},
-			mergeAttribute: &attrmapper.DataSourceFloat64Attribute{
-				Name: "float64_attribute",
-				Float64Attribute: datasource.Float64Attribute{
+			mergeAttribute: &attrmapper.DataSourceInt32Attribute{
+				Name: "Int32_attribute",
+				Int32Attribute: datasource.Int32Attribute{
 					ComputedOptionalRequired: schema.ComputedOptional,
-					Description:              pointer("new float64 description"),
+					Description:              pointer("new Int32 description"),
 				},
 			},
-			expectedAttribute: &attrmapper.DataSourceFloat64Attribute{
-				Name: "float64_attribute",
-				Float64Attribute: datasource.Float64Attribute{
+			expectedAttribute: &attrmapper.DataSourceInt32Attribute{
+				Name: "Int32_attribute",
+				Int32Attribute: datasource.Int32Attribute{
 					ComputedOptionalRequired: schema.Required,
-					Description:              pointer("new float64 description"),
+					Description:              pointer("new Int32 description"),
 				},
 			},
 		},
 		"empty description - merge": {
-			targetAttribute: attrmapper.DataSourceFloat64Attribute{
-				Name: "float64_attribute",
-				Float64Attribute: datasource.Float64Attribute{
+			targetAttribute: attrmapper.DataSourceInt32Attribute{
+				Name: "Int32_attribute",
+				Int32Attribute: datasource.Int32Attribute{
 					ComputedOptionalRequired: schema.Required,
 					Description:              pointer(""),
 				},
 			},
-			mergeAttribute: &attrmapper.DataSourceFloat64Attribute{
-				Name: "float64_attribute",
-				Float64Attribute: datasource.Float64Attribute{
+			mergeAttribute: &attrmapper.DataSourceInt32Attribute{
+				Name: "Int32_attribute",
+				Int32Attribute: datasource.Int32Attribute{
 					ComputedOptionalRequired: schema.ComputedOptional,
-					Description:              pointer("new float64 description"),
+					Description:              pointer("new Int32 description"),
 				},
 			},
-			expectedAttribute: &attrmapper.DataSourceFloat64Attribute{
-				Name: "float64_attribute",
-				Float64Attribute: datasource.Float64Attribute{
+			expectedAttribute: &attrmapper.DataSourceInt32Attribute{
+				Name: "Int32_attribute",
+				Int32Attribute: datasource.Int32Attribute{
 					ComputedOptionalRequired: schema.Required,
-					Description:              pointer("new float64 description"),
+					Description:              pointer("new Int32 description"),
 				},
 			},
 		},
@@ -281,18 +281,18 @@ func TestDataSourceFloat64Attribute_Merge(t *testing.T) {
 	}
 }
 
-func TestDataSourceFloat64Attribute_ApplyOverride(t *testing.T) {
+func TestDataSourceInt32Attribute_ApplyOverride(t *testing.T) {
 	t.Parallel()
 
 	testCases := map[string]struct {
-		attribute         attrmapper.DataSourceFloat64Attribute
+		attribute         attrmapper.DataSourceInt32Attribute
 		override          explorer.Override
 		expectedAttribute attrmapper.DataSourceAttribute
 	}{
 		"override description": {
-			attribute: attrmapper.DataSourceFloat64Attribute{
+			attribute: attrmapper.DataSourceInt32Attribute{
 				Name: "test_attribute",
-				Float64Attribute: datasource.Float64Attribute{
+				Int32Attribute: datasource.Int32Attribute{
 					ComputedOptionalRequired: schema.Required,
 					Description:              pointer("old description"),
 				},
@@ -300,9 +300,9 @@ func TestDataSourceFloat64Attribute_ApplyOverride(t *testing.T) {
 			override: explorer.Override{
 				Description: "new description",
 			},
-			expectedAttribute: &attrmapper.DataSourceFloat64Attribute{
+			expectedAttribute: &attrmapper.DataSourceInt32Attribute{
 				Name: "test_attribute",
-				Float64Attribute: datasource.Float64Attribute{
+				Int32Attribute: datasource.Int32Attribute{
 					ComputedOptionalRequired: schema.Required,
 					Description:              pointer("new description"),
 				},
